@@ -1,0 +1,21 @@
+#root {
+  width: 100%;
+  min-height: 100vh;
+}
+
+#main-content {
+  position: relative;
+  z-index: 1;
+}
+
+.section-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-border-light), transparent);
+  margin: var(--space-16) 0;
+}
+
+@media (max-width: 640px) {
+  .section-divider {
+    margin: var(--space-12) 0;
+  }
+}
