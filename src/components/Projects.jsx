@@ -64,14 +64,17 @@ const projects = [
 export function Projects() {
   const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  const viewportConfig = { once: true, margin: '0px' };
+
   return (
     <section id="projects" className="section projects" aria-labelledby="projects-title">
       <div className="container">
         <motion.div
           className="projects__header"
           initial={prefersReducedMotion ? {} : { opacity: 0, y: 30 }}
+          animate={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
           whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-100px' }}
+          viewport={viewportConfig}
           transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
         >
           <span className="projects__badge">Selected Work</span>
@@ -88,8 +91,9 @@ export function Projects() {
               key={project.id}
               className={`projects__card ${project.featured ? 'projects__card--featured' : ''}`}
               initial={prefersReducedMotion ? {} : { opacity: 0, y: 40 }}
+              animate={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
               whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-100px' }}
+              viewport={viewportConfig}
               transition={{ delay: index * 0.15, duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
             >
               {project.featured ? (
@@ -106,6 +110,7 @@ export function Projects() {
 }
 
 function ProjectFeatured({ project, prefersReducedMotion }) {
+  const viewportConfig = { once: true, margin: '0px' };
   return (
     <div className="projects__featured">
       <div className="projects__visual">
@@ -181,8 +186,9 @@ function ProjectFeatured({ project, prefersReducedMotion }) {
                 key={tech.name}
                 className="projects__tech-tag"
                 initial={prefersReducedMotion ? {} : { opacity: 0, scale: 0.8 }}
+                animate={prefersReducedMotion ? {} : { opacity: 1, scale: 1 }}
                 whileInView={prefersReducedMotion ? {} : { opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
+                viewport={viewportConfig}
                 transition={{ delay: 0.3 + i * 0.05, type: 'spring', stiffness: 300, damping: 20 }}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -201,8 +207,9 @@ function ProjectFeatured({ project, prefersReducedMotion }) {
               <motion.li
                 key={feature}
                 initial={prefersReducedMotion ? {} : { opacity: 0, x: -10 }}
+                animate={prefersReducedMotion ? {} : { opacity: 1, x: 0 }}
                 whileInView={prefersReducedMotion ? {} : { opacity: 1, x: 0 }}
-                viewport={{ once: true }}
+                viewport={viewportConfig}
                 transition={{ delay: 0.4 + i * 0.05, type: 'spring', stiffness: 300, damping: 25 }}
               >
                 <span className="projects__feature-bullet" aria-hidden="true" />
@@ -251,6 +258,7 @@ function ProjectFeatured({ project, prefersReducedMotion }) {
 }
 
 function ProjectCompact({ project, prefersReducedMotion }) {
+  const viewportConfig = { once: true, margin: '0px' };
   return (
     <div className="projects__compact">
       <div className="projects__visual projects__visual--compact">
@@ -319,8 +327,9 @@ function ProjectCompact({ project, prefersReducedMotion }) {
                 key={tech.name}
                 className="projects__tech-tag"
                 initial={prefersReducedMotion ? {} : { opacity: 0, scale: 0.8 }}
+                animate={prefersReducedMotion ? {} : { opacity: 1, scale: 1 }}
                 whileInView={prefersReducedMotion ? {} : { opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
+                viewport={viewportConfig}
                 transition={{ delay: 0.3 + i * 0.05, type: 'spring', stiffness: 300, damping: 20 }}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -339,8 +348,9 @@ function ProjectCompact({ project, prefersReducedMotion }) {
               <motion.li
                 key={feature}
                 initial={prefersReducedMotion ? {} : { opacity: 0, x: -10 }}
+                animate={prefersReducedMotion ? {} : { opacity: 1, x: 0 }}
                 whileInView={prefersReducedMotion ? {} : { opacity: 1, x: 0 }}
-                viewport={{ once: true }}
+                viewport={viewportConfig}
                 transition={{ delay: 0.4 + i * 0.05, type: 'spring', stiffness: 300, damping: 25 }}
               >
                 <span className="projects__feature-bullet" aria-hidden="true" />

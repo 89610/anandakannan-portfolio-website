@@ -179,6 +179,13 @@ code, pre {
 
 .section {
   padding: var(--space-20) 0;
+  scroll-margin-top: var(--header-height);
+}
+
+@media (max-width: 1024px) {
+  .section {
+    scroll-margin-top: var(--header-height-mobile);
+  }
 }
 
 @media (max-width: 1280px) {

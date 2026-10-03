@@ -35,14 +35,17 @@ const activities = [
 export function TechnicalActivities() {
   const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  const viewportConfig = { once: true, margin: '0px' };
+
   return (
     <section id="technical-activities" className="section technical-activities" aria-labelledby="technical-activities-title">
       <div className="container">
         <motion.div
           className="technical-activities__header"
           initial={prefersReducedMotion ? {} : { opacity: 0, y: 30 }}
+          animate={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
           whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-100px' }}
+          viewport={viewportConfig}
           transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
         >
           <span className="technical-activities__badge">Technical Activities</span>
@@ -55,8 +58,9 @@ export function TechnicalActivities() {
         <motion.div
           className="technical-activities__grid"
           initial={prefersReducedMotion ? {} : { opacity: 0 }}
+          animate={prefersReducedMotion ? {} : { opacity: 1 }}
           whileInView={prefersReducedMotion ? {} : { opacity: 1 }}
-          viewport={{ once: true, margin: '-100px' }}
+          viewport={viewportConfig}
           transition={{ delay: 0.1 }}
         >
           {activities.map((activity, index) => (
@@ -69,8 +73,9 @@ export function TechnicalActivities() {
                 '--activity-border': activity.borderColor,
               }}
               initial={prefersReducedMotion ? {} : { opacity: 0, y: 30 }}
+              animate={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
               whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={viewportConfig}
               transition={{ delay: 0.15 + index * 0.1, type: 'spring', stiffness: 300, damping: 25 }}
             >
               <div className="technical-activities__card-header">
@@ -92,8 +97,9 @@ export function TechnicalActivities() {
                       key={highlight}
                       className="technical-activities__highlight-item"
                       initial={prefersReducedMotion ? {} : { opacity: 0, x: -10 }}
+                      animate={prefersReducedMotion ? {} : { opacity: 1, x: 0 }}
                       whileInView={prefersReducedMotion ? {} : { opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
+                      viewport={viewportConfig}
                       transition={{ delay: 0.25 + hIndex * 0.04, type: 'spring', stiffness: 300, damping: 25 }}
                     >
                       <FiCheckCircle size={14} className="technical-activities__check" aria-hidden="true" />

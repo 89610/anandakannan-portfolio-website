@@ -20,14 +20,17 @@ const educationData = {
 export function Education() {
   const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  const viewportConfig = { once: true, margin: '0px' };
+
   return (
     <section id="education" className="section education" aria-labelledby="education-title">
       <div className="container">
         <motion.div
           className="education__header"
           initial={prefersReducedMotion ? {} : { opacity: 0, y: 30 }}
+          animate={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
           whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-100px' }}
+          viewport={viewportConfig}
           transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
         >
           <span className="education__badge">Education</span>
@@ -40,8 +43,9 @@ export function Education() {
         <motion.div
           className="education__timeline"
           initial={prefersReducedMotion ? {} : { opacity: 0 }}
+          animate={prefersReducedMotion ? {} : { opacity: 1 }}
           whileInView={prefersReducedMotion ? {} : { opacity: 1 }}
-          viewport={{ once: true, margin: '-100px' }}
+          viewport={viewportConfig}
           transition={{ delay: 0.1 }}
         >
           <div className="education__timeline-line" aria-hidden="true" />
@@ -49,8 +53,9 @@ export function Education() {
           <motion.article
             className="education__entry"
             initial={prefersReducedMotion ? {} : { opacity: 0, x: -30 }}
+            animate={prefersReducedMotion ? {} : { opacity: 1, x: 0 }}
             whileInView={prefersReducedMotion ? {} : { opacity: 1, x: 0 }}
-            viewport={{ once: true }}
+            viewport={viewportConfig}
             transition={{ delay: 0.15, type: 'spring', stiffness: 300, damping: 25 }}
           >
             <div className="education__marker">
@@ -94,8 +99,9 @@ export function Education() {
                         key={course}
                         className="education__coursework-item"
                         initial={prefersReducedMotion ? {} : { opacity: 0, x: -10 }}
+                        animate={prefersReducedMotion ? {} : { opacity: 1, x: 0 }}
                         whileInView={prefersReducedMotion ? {} : { opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
+                        viewport={viewportConfig}
                         transition={{ delay: 0.25 + index * 0.05, type: 'spring', stiffness: 300, damping: 25 }}
                       >
                         <span className="education__coursework-bullet" aria-hidden="true" />

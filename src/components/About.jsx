@@ -28,14 +28,17 @@ const aboutData = {
 export function About() {
   const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  const viewportConfig = { once: true, margin: '0px' };
+
   return (
     <section id="about" className="section about" aria-labelledby="about-title">
       <div className="container">
         <motion.div
           className="about__header"
           initial={prefersReducedMotion ? {} : { opacity: 0, y: 30 }}
+          animate={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
           whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-100px' }}
+          viewport={viewportConfig}
           transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
         >
           <span className="about__badge">About Me</span>
@@ -46,8 +49,9 @@ export function About() {
           <motion.article
             className="about__content"
             initial={prefersReducedMotion ? {} : { opacity: 0, y: 30 }}
+            animate={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
             whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-100px' }}
+            viewport={viewportConfig}
             transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.1 }}
           >
             <div className="about__text-block">
@@ -57,8 +61,9 @@ export function About() {
             <motion.div
               className="about__highlights"
               initial={prefersReducedMotion ? {} : { opacity: 0 }}
+              animate={prefersReducedMotion ? {} : { opacity: 1 }}
               whileInView={prefersReducedMotion ? {} : { opacity: 1 }}
-              viewport={{ once: true, margin: '-100px' }}
+              viewport={viewportConfig}
               transition={{ delay: 0.3 }}
             >
               {aboutData.highlights.map((highlight, index) => (
@@ -66,8 +71,9 @@ export function About() {
                   key={highlight.title}
                   className="about__highlight-card"
                   initial={prefersReducedMotion ? {} : { opacity: 0, y: 20 }}
+                  animate={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
                   whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
+                  viewport={viewportConfig}
                   transition={{ delay: 0.4 + index * 0.1, type: 'spring', stiffness: 300, damping: 25 }}
                 >
                   <div className="about__highlight-icon">
@@ -83,8 +89,9 @@ export function About() {
           <motion.aside
             className="about__sidebar"
             initial={prefersReducedMotion ? {} : { opacity: 0, y: 30 }}
+            animate={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
             whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-100px' }}
+            viewport={viewportConfig}
             transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.2 }}
           >
             <div className="about__card about__card--education">
@@ -125,8 +132,9 @@ export function About() {
                       key={course}
                       className="about__coursework-item"
                       initial={prefersReducedMotion ? {} : { opacity: 0, x: -20 }}
+                      animate={prefersReducedMotion ? {} : { opacity: 1, x: 0 }}
                       whileInView={prefersReducedMotion ? {} : { opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
+                      viewport={viewportConfig}
                       transition={{ delay: 0.3 + index * 0.05, type: 'spring', stiffness: 300, damping: 25 }}
                     >
                       <span className="about__coursework-bullet" aria-hidden="true" />

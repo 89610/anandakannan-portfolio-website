@@ -24,6 +24,8 @@ export function Footer() {
   const [showBackToTop, setShowBackToTop] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
+  const viewportConfig = { once: true, margin: '0px' };
+
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
@@ -50,8 +52,9 @@ export function Footer() {
         <motion.div
           className="footer__main"
           initial={prefersReducedMotion ? {} : { opacity: 0, y: 30 }}
+          animate={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
           whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-100px' }}
+          viewport={viewportConfig}
           transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
         >
           <div className="footer__brand">
@@ -73,8 +76,9 @@ export function Footer() {
                 <motion.li
                   key={item.label}
                   initial={prefersReducedMotion ? {} : { opacity: 0, y: 10 }}
+                  animate={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
                   whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
+                  viewport={viewportConfig}
                   transition={{ delay: 0.2 + index * 0.03, type: 'spring', stiffness: 300, damping: 25 }}
                 >
                   <a
@@ -106,8 +110,9 @@ export function Footer() {
                   className="footer__social-link"
                   aria-label={social.label}
                   initial={prefersReducedMotion ? {} : { opacity: 0, y: 10, scale: 0.9 }}
+                  animate={prefersReducedMotion ? {} : { opacity: 1, y: 0, scale: 1 }}
                   whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0, scale: 1 }}
-                  viewport={{ once: true }}
+                  viewport={viewportConfig}
                   transition={{ delay: 0.3 + index * 0.05, type: 'spring', stiffness: 300, damping: 20 }}
                   whileHover={{ scale: 1.1, y: -2 }}
                   whileTap={{ scale: 0.95 }}
@@ -123,8 +128,9 @@ export function Footer() {
         <motion.div
           className="footer__bottom"
           initial={prefersReducedMotion ? {} : { opacity: 0, y: 20 }}
+          animate={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
           whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-100px' }}
+          viewport={viewportConfig}
           transition={{ delay: 0.5 }}
         >
           <div className="footer__divider" aria-hidden="true" />

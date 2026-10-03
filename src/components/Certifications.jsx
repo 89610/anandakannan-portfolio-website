@@ -48,14 +48,17 @@ const certifications = [
 export function Certifications() {
   const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  const viewportConfig = { once: true, margin: '0px' };
+
   return (
     <section id="certifications" className="section certifications" aria-labelledby="certifications-title">
       <div className="container">
         <motion.div
           className="certifications__header"
           initial={prefersReducedMotion ? {} : { opacity: 0, y: 30 }}
+          animate={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
           whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-100px' }}
+          viewport={viewportConfig}
           transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
         >
           <span className="certifications__badge">Certifications</span>
@@ -68,8 +71,9 @@ export function Certifications() {
         <motion.div
           className="certifications__grid"
           initial={prefersReducedMotion ? {} : { opacity: 0 }}
+          animate={prefersReducedMotion ? {} : { opacity: 1 }}
           whileInView={prefersReducedMotion ? {} : { opacity: 1 }}
-          viewport={{ once: true, margin: '-100px' }}
+          viewport={viewportConfig}
           transition={{ delay: 0.1 }}
         >
           {certifications.map((cert, index) => (
@@ -82,8 +86,9 @@ export function Certifications() {
                 '--cert-border': cert.borderColor,
               }}
               initial={prefersReducedMotion ? {} : { opacity: 0, y: 30 }}
+              animate={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
               whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={viewportConfig}
               transition={{ delay: 0.15 + index * 0.08, type: 'spring', stiffness: 300, damping: 25 }}
             >
               <div className="certifications__card-inner">

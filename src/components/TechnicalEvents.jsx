@@ -38,14 +38,17 @@ const events = [
 export function TechnicalEvents() {
   const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  const viewportConfig = { once: true, margin: '0px' };
+
   return (
     <section id="technical-events" className="section technical-events" aria-labelledby="technical-events-title">
       <div className="container">
         <motion.div
           className="technical-events__header"
           initial={prefersReducedMotion ? {} : { opacity: 0, y: 30 }}
+          animate={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
           whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-100px' }}
+          viewport={viewportConfig}
           transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
         >
           <span className="technical-events__badge">Technical Events</span>
@@ -58,8 +61,9 @@ export function TechnicalEvents() {
         <motion.div
           className="technical-events__timeline"
           initial={prefersReducedMotion ? {} : { opacity: 0 }}
+          animate={prefersReducedMotion ? {} : { opacity: 1 }}
           whileInView={prefersReducedMotion ? {} : { opacity: 1 }}
-          viewport={{ once: true, margin: '-100px' }}
+          viewport={viewportConfig}
           transition={{ delay: 0.1 }}
         >
           <div className="technical-events__timeline-line" aria-hidden="true" />
@@ -69,8 +73,9 @@ export function TechnicalEvents() {
               key={event.id}
               className="technical-events__entry"
               initial={prefersReducedMotion ? {} : { opacity: 0, x: -30 }}
+              animate={prefersReducedMotion ? {} : { opacity: 1, x: 0 }}
               whileInView={prefersReducedMotion ? {} : { opacity: 1, x: 0 }}
-              viewport={{ once: true }}
+              viewport={viewportConfig}
               transition={{ delay: 0.15 + index * 0.1, type: 'spring', stiffness: 300, damping: 25 }}
             >
               <div className="technical-events__marker">

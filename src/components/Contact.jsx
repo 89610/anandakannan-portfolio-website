@@ -24,6 +24,8 @@ export function Contact() {
   const [errors, setErrors] = useState({});
   const [submitStatus, setSubmitStatus] = useState('idle'); // idle, submitting, success, error
 
+  const viewportConfig = { once: true, margin: '0px' };
+
   const validateForm = () => {
     const newErrors = {};
     if (!formData.name.trim()) newErrors.name = 'Name is required';
@@ -89,8 +91,9 @@ export function Contact() {
           <motion.div
             className="contact__info"
             initial={prefersReducedMotion ? {} : { opacity: 0, x: -40 }}
+            animate={prefersReducedMotion ? {} : { opacity: 1, x: 0 }}
             whileInView={prefersReducedMotion ? {} : { opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: '-100px' }}
+            viewport={viewportConfig}
             transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
           >
             <span className="contact__badge">Get In Touch</span>
@@ -109,8 +112,9 @@ export function Contact() {
                   key={item.label}
                   className="contact__detail-item"
                   initial={prefersReducedMotion ? {} : { opacity: 0, y: 20 }}
+                  animate={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
                   whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
+                  viewport={viewportConfig}
                   transition={{ delay: 0.3 + index * 0.1, type: 'spring', stiffness: 300, damping: 25 }}
                 >
                   <div className="contact__detail-icon">
@@ -137,8 +141,9 @@ export function Contact() {
                     className="contact__social-link"
                     aria-label={social.label}
                     initial={prefersReducedMotion ? {} : { opacity: 0, y: 20, scale: 0.9 }}
+                    animate={prefersReducedMotion ? {} : { opacity: 1, y: 0, scale: 1 }}
                     whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0, scale: 1 }}
-                    viewport={{ once: true }}
+                    viewport={viewportConfig}
                     transition={{ delay: 0.6 + index * 0.08, type: 'spring', stiffness: 300, damping: 20 }}
                     whileHover={{ scale: 1.1, y: -3 }}
                     whileTap={{ scale: 0.95 }}
@@ -154,8 +159,9 @@ export function Contact() {
           <motion.div
             className="contact__form-wrapper"
             initial={prefersReducedMotion ? {} : { opacity: 0, x: 40 }}
+            animate={prefersReducedMotion ? {} : { opacity: 1, x: 0 }}
             whileInView={prefersReducedMotion ? {} : { opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: '-100px' }}
+            viewport={viewportConfig}
             transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.1 }}
           >
             <div className="contact__form-card">

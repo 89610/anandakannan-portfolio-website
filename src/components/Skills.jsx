@@ -80,14 +80,17 @@ const skillsData = {
 export function Skills() {
   const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  const viewportConfig = { once: true, margin: '0px' };
+
   return (
     <section id="skills" className="section skills" aria-labelledby="skills-title">
       <div className="container">
         <motion.div
           className="skills__header"
           initial={prefersReducedMotion ? {} : { opacity: 0, y: 30 }}
+          animate={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
           whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-100px' }}
+          viewport={viewportConfig}
           transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
         >
           <span className="skills__badge">Technical Skills</span>
@@ -101,8 +104,9 @@ export function Skills() {
         <motion.div
           className="skills__grid"
           initial={prefersReducedMotion ? {} : { opacity: 0 }}
+          animate={prefersReducedMotion ? {} : { opacity: 1 }}
           whileInView={prefersReducedMotion ? {} : { opacity: 1 }}
-          viewport={{ once: true, margin: '-100px' }}
+          viewport={viewportConfig}
           transition={{ delay: 0.1 }}
         >
           {skillsData.categories.map((category, catIndex) => (
@@ -115,8 +119,9 @@ export function Skills() {
                 '--category-border': category.borderColor,
               }}
               initial={prefersReducedMotion ? {} : { opacity: 0, y: 30 }}
+              animate={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
               whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={viewportConfig}
               transition={{ delay: 0.15 + catIndex * 0.08, type: 'spring', stiffness: 300, damping: 25 }}
             >
               <header className="skills__category-header">
@@ -135,8 +140,9 @@ export function Skills() {
                     key={skill}
                     className="skills__item"
                     initial={prefersReducedMotion ? {} : { opacity: 0, x: -20 }}
+                    animate={prefersReducedMotion ? {} : { opacity: 1, x: 0 }}
                     whileInView={prefersReducedMotion ? {} : { opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
+                    viewport={viewportConfig}
                     transition={{ delay: 0.2 + catIndex * 0.08 + skillIndex * 0.03, type: 'spring', stiffness: 300, damping: 25 }}
                     whileHover={{ x: 8 }}
                   >
