@@ -2,6 +2,18 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { useReducedMotion } from '../hooks/useScrollReveal';
 
+const FAST_TRANSITION = {
+  duration: 0.35,
+  ease: 'easeOut',
+};
+
+const FAST_Y_OFFSET = 12;
+
+const DEFAULT_VIEWPORT = {
+  once: false,
+  amount: 0.1,
+};
+
 export function ScrollReveal({
   children,
   delay = 0,
@@ -10,7 +22,7 @@ export function ScrollReveal({
   className = '',
   style = {},
   as: Component = 'div',
-  viewport = { once: true, margin: '0px' },
+  viewport = DEFAULT_VIEWPORT,
   ...props
 }) {
   const prefersReducedMotion = useReducedMotion();
@@ -19,12 +31,11 @@ export function ScrollReveal({
     return <Component className={className} style={style} {...props}>{children}</Component>;
   }
 
-  const initial = { opacity: 0, y: 20 };
+  const initial = { opacity: 0, y: FAST_Y_OFFSET };
   const animate = { opacity: 1, y: 0 };
   const transition = {
-    duration: 0.5,
-    ease: [0.25, 0.46, 0.45, 0.94],
-    delay: delay + index * stagger
+    ...FAST_TRANSITION,
+    delay: delay + index * stagger,
   };
 
   return (
@@ -51,7 +62,7 @@ export function ScrollRevealText({
   className = '',
   style = {},
   as: Component = 'p',
-  viewport = { once: true, margin: '0px' },
+  viewport = DEFAULT_VIEWPORT,
   ...props
 }) {
   const prefersReducedMotion = useReducedMotion();
@@ -60,12 +71,11 @@ export function ScrollRevealText({
     return <Component className={className} style={style} {...props}>{children}</Component>;
   }
 
-  const initial = { opacity: 0, y: 15 };
+  const initial = { opacity: 0, y: FAST_Y_OFFSET };
   const animate = { opacity: 1, y: 0 };
   const transition = {
-    duration: 0.45,
-    ease: [0.25, 0.46, 0.45, 0.94],
-    delay: delay + index * stagger
+    ...FAST_TRANSITION,
+    delay: delay + index * stagger,
   };
 
   return (
@@ -87,10 +97,10 @@ export function ScrollRevealText({
 export function StaggerContainer({
   children,
   delay = 0,
-  stagger = 60,
+  stagger = 30,
   className = '',
   style = {},
-  viewport = { once: true, margin: '0px' },
+  viewport = DEFAULT_VIEWPORT,
   ...props
 }) {
   const prefersReducedMotion = useReducedMotion();
@@ -112,14 +122,13 @@ export function StaggerContainer({
       {childArray.map((child, index) => {
         if (!React.isValidElement(child)) return child;
         return React.cloneElement(child, {
-          initial: { opacity: 0, y: 20 },
+          initial: { opacity: 0, y: FAST_Y_OFFSET },
           animate: { opacity: 1, y: 0 },
           transition: {
-            duration: 0.5,
-            ease: [0.25, 0.46, 0.45, 0.94],
-            delay: delay + index * stagger
+            ...FAST_TRANSITION,
+            delay: delay + index * stagger,
           },
-          viewport: undefined
+          viewport: undefined,
         });
       })}
     </motion.div>
