@@ -149,7 +149,7 @@ export function Hero() {
               {heroContent.ctaSecondary.label}
             </motion.button>
             <motion.a
-              href="public/Anandakannan_Frontend_Developer_CV.pdf"
+              href="/Anandakannan_Frontend_Developer_CV.pdf"
               download="Anandakannan_Frontend_Developer_CV.pdf"
               className="btn btn-secondary btn-lg hero__cta-download"
               whileHover={prefersReducedMotion ? {} : { y: -2 }}
