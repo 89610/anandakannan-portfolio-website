@@ -19,10 +19,10 @@ export function ScrollReveal({
     return <Component className={className} style={style} {...props}>{children}</Component>;
   }
 
-  const initial = { opacity: 0, y: 25 };
+  const initial = { opacity: 0, y: 20 };
   const animate = { opacity: 1, y: 0 };
   const transition = {
-    duration: 0.7,
+    duration: 0.5,
     ease: [0.25, 0.46, 0.45, 0.94],
     delay: delay + index * stagger
   };
@@ -60,10 +60,10 @@ export function ScrollRevealText({
     return <Component className={className} style={style} {...props}>{children}</Component>;
   }
 
-  const initial = { opacity: 0, y: 20 };
+  const initial = { opacity: 0, y: 15 };
   const animate = { opacity: 1, y: 0 };
   const transition = {
-    duration: 0.6,
+    duration: 0.45,
     ease: [0.25, 0.46, 0.45, 0.94],
     delay: delay + index * stagger
   };
@@ -87,7 +87,7 @@ export function ScrollRevealText({
 export function StaggerContainer({
   children,
   delay = 0,
-  stagger = 100,
+  stagger = 60,
   className = '',
   style = {},
   viewport = { once: true, margin: '0px' },
@@ -112,10 +112,10 @@ export function StaggerContainer({
       {childArray.map((child, index) => {
         if (!React.isValidElement(child)) return child;
         return React.cloneElement(child, {
-          initial: { opacity: 0, y: 25 },
+          initial: { opacity: 0, y: 20 },
           animate: { opacity: 1, y: 0 },
           transition: {
-            duration: 0.7,
+            duration: 0.5,
             ease: [0.25, 0.46, 0.45, 0.94],
             delay: delay + index * stagger
           },
