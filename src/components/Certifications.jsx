@@ -48,7 +48,7 @@ const certifications = [
 export function Certifications() {
   const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  const viewportConfig = { once: true, margin: '0px' };
+  const viewportConfig = { once: false, margin: '0px' };
 
   return (
     <section id="certifications" className="section certifications" aria-labelledby="certifications-title">

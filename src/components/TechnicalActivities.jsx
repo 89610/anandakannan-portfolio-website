@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { FiTerminal, FiBookOpen, FiCheckCircle, FiTarget } from 'react-icons/fi';
+import { StaggerContainer } from './ScrollReveal';
 import './TechnicalActivities.css';
 
 const activities = [
@@ -35,7 +36,7 @@ const activities = [
 export function TechnicalActivities() {
   const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  const viewportConfig = { once: true, margin: '0px' };
+  const viewportConfig = { once: false, margin: '0px' };
 
   return (
     <section id="technical-activities" className="section technical-activities" aria-labelledby="technical-activities-title">
@@ -91,22 +92,27 @@ export function TechnicalActivities() {
 
               <div className="technical-activities__highlights">
                 <h4 className="technical-activities__highlights-title">Focus Areas</h4>
-                <ul className="technical-activities__highlights-list" role="list">
+                <StaggerContainer
+                  as="ul"
+                  className="technical-activities__highlights-list"
+                  role="list"
+                  delay={0.25}
+                  stagger={40}
+                  viewport={undefined}
+                >
                   {activity.highlights.map((highlight, hIndex) => (
                     <motion.li
                       key={highlight}
                       className="technical-activities__highlight-item"
                       initial={prefersReducedMotion ? {} : { opacity: 0, x: -10 }}
                       animate={prefersReducedMotion ? {} : { opacity: 1, x: 0 }}
-                      whileInView={prefersReducedMotion ? {} : { opacity: 1, x: 0 }}
-                      viewport={viewportConfig}
-                      transition={{ delay: 0.25 + hIndex * 0.04, type: 'spring', stiffness: 300, damping: 25 }}
+                      transition={{ type: 'spring', stiffness: 300, damping: 25 }}
                     >
                       <FiCheckCircle size={14} className="technical-activities__check" aria-hidden="true" />
                       <span>{highlight}</span>
                     </motion.li>
                   ))}
-                </ul>
+                </StaggerContainer>
               </div>
             </motion.article>
           ))}

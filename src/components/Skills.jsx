@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { FiCode, FiTerminal, FiLayout, FiTool, FiDatabase, FiGlobe } from 'react-icons/fi';
+import { StaggerContainer } from './ScrollReveal';
 import './Skills.css';
 
 const skillsData = {
@@ -80,7 +81,7 @@ const skillsData = {
 export function Skills() {
   const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  const viewportConfig = { once: true, margin: '0px' };
+  const viewportConfig = { once: false, margin: '0px' };
 
   return (
     <section id="skills" className="section skills" aria-labelledby="skills-title">
@@ -134,16 +135,21 @@ export function Skills() {
                 </div>
               </header>
 
-              <ul className="skills__list" role="list">
+              <StaggerContainer
+                as="ul"
+                className="skills__list"
+                role="list"
+                delay={0.1}
+                stagger={30}
+                viewport={undefined}
+              >
                 {category.skills.map((skill, skillIndex) => (
                   <motion.li
                     key={skill}
                     className="skills__item"
                     initial={prefersReducedMotion ? {} : { opacity: 0, x: -20 }}
                     animate={prefersReducedMotion ? {} : { opacity: 1, x: 0 }}
-                    whileInView={prefersReducedMotion ? {} : { opacity: 1, x: 0 }}
-                    viewport={viewportConfig}
-                    transition={{ delay: 0.2 + catIndex * 0.08 + skillIndex * 0.03, type: 'spring', stiffness: 300, damping: 25 }}
+                    transition={{ type: 'spring', stiffness: 300, damping: 25 }}
                     whileHover={{ x: 8 }}
                   >
                     <span className="skills__item-name">{skill}</span>
@@ -152,7 +158,7 @@ export function Skills() {
                     </span>
                   </motion.li>
                 ))}
-              </ul>
+              </StaggerContainer>
             </motion.article>
           ))}
         </motion.div>

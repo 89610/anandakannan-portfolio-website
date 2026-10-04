@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { FiAward, FiBook, FiCalendar } from 'react-icons/fi';
+import { StaggerContainer } from './ScrollReveal';
 import './Education.css';
 
 const educationData = {
@@ -20,7 +21,7 @@ const educationData = {
 export function Education() {
   const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  const viewportConfig = { once: true, margin: '0px' };
+  const viewportConfig = { once: false, margin: '0px' };
 
   return (
     <section id="education" className="section education" aria-labelledby="education-title">
@@ -93,22 +94,27 @@ export function Education() {
 
                 <div className="education__coursework">
                   <h4 className="education__coursework-title">Relevant Coursework</h4>
-                  <ul className="education__coursework-list" role="list">
+                  <StaggerContainer
+                    as="ul"
+                    className="education__coursework-list"
+                    role="list"
+                    delay={0.2}
+                    stagger={50}
+                    viewport={undefined}
+                  >
                     {educationData.coursework.map((course, index) => (
                       <motion.li
                         key={course}
                         className="education__coursework-item"
                         initial={prefersReducedMotion ? {} : { opacity: 0, x: -10 }}
                         animate={prefersReducedMotion ? {} : { opacity: 1, x: 0 }}
-                        whileInView={prefersReducedMotion ? {} : { opacity: 1, x: 0 }}
-                        viewport={viewportConfig}
-                        transition={{ delay: 0.25 + index * 0.05, type: 'spring', stiffness: 300, damping: 25 }}
+                        transition={{ type: 'spring', stiffness: 300, damping: 25 }}
                       >
                         <span className="education__coursework-bullet" aria-hidden="true" />
                         <span>{course}</span>
                       </motion.li>
                     ))}
-                  </ul>
+                  </StaggerContainer>
                 </div>
               </div>
             </div>

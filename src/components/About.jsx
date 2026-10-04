@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { FiBook, FiTarget, FiCode } from 'react-icons/fi';
+import { ScrollReveal, StaggerContainer } from './ScrollReveal';
 import './About.css';
 
 const aboutData = {
@@ -28,7 +29,7 @@ const aboutData = {
 export function About() {
   const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  const viewportConfig = { once: true, margin: '0px' };
+  const viewportConfig = { once: false, margin: '0px' };
 
   return (
     <section id="about" className="section about" aria-labelledby="about-title">
@@ -54,17 +55,20 @@ export function About() {
             viewport={viewportConfig}
             transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.1 }}
           >
-            <div className="about__text-block">
-              <p>{aboutData.summary}</p>
-            </div>
-
-            <motion.div
-              className="about__highlights"
-              initial={prefersReducedMotion ? {} : { opacity: 0 }}
-              animate={prefersReducedMotion ? {} : { opacity: 1 }}
-              whileInView={prefersReducedMotion ? {} : { opacity: 1 }}
+            <ScrollReveal
+              as="div"
+              className="about__text-block"
+              delay={0.2}
               viewport={viewportConfig}
-              transition={{ delay: 0.3 }}
+            >
+              <p>{aboutData.summary}</p>
+            </ScrollReveal>
+
+            <StaggerContainer
+              className="about__highlights"
+              delay={0.3}
+              stagger={100}
+              viewport={viewportConfig}
             >
               {aboutData.highlights.map((highlight, index) => (
                 <motion.div
@@ -72,9 +76,8 @@ export function About() {
                   className="about__highlight-card"
                   initial={prefersReducedMotion ? {} : { opacity: 0, y: 20 }}
                   animate={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
-                  whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
-                  viewport={viewportConfig}
-                  transition={{ delay: 0.4 + index * 0.1, type: 'spring', stiffness: 300, damping: 25 }}
+                  viewport={undefined}
+                  transition={{ type: 'spring', stiffness: 300, damping: 25 }}
                 >
                   <div className="about__highlight-icon">
                     <highlight.icon size={22} aria-hidden="true" />
@@ -83,7 +86,7 @@ export function About() {
                   <p className="about__highlight-desc">{highlight.desc}</p>
                 </motion.div>
               ))}
-            </motion.div>
+            </StaggerContainer>
           </motion.article>
 
           <motion.aside
@@ -94,7 +97,12 @@ export function About() {
             viewport={viewportConfig}
             transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.2 }}
           >
-            <div className="about__card about__card--education">
+            <ScrollReveal
+              as="div"
+              className="about__card about__card--education"
+              delay={0.1}
+              viewport={viewportConfig}
+            >
               <div className="about__card-header">
                 <div className="about__card-icon">
                   <FiBook size={24} aria-hidden="true" />
@@ -113,9 +121,14 @@ export function About() {
                   <span className="about__cgpa-value">{aboutData.education.cgpa}</span>
                 </div>
               </div>
-            </div>
+            </ScrollReveal>
 
-            <div className="about__card about__card--coursework">
+            <ScrollReveal
+              as="div"
+              className="about__card about__card--coursework"
+              delay={0.2}
+              viewport={viewportConfig}
+            >
               <div className="about__card-header">
                 <div className="about__card-icon">
                   <FiBook size={24} aria-hidden="true" />
@@ -126,24 +139,28 @@ export function About() {
                 </div>
               </div>
               <div className="about__card-body">
-                <ul className="about__coursework-list">
+                <StaggerContainer
+                  as="ul"
+                  className="about__coursework-list"
+                  delay={0.1}
+                  stagger={50}
+                  viewport={undefined}
+                >
                   {aboutData.coursework.map((course, index) => (
                     <motion.li
                       key={course}
                       className="about__coursework-item"
                       initial={prefersReducedMotion ? {} : { opacity: 0, x: -20 }}
                       animate={prefersReducedMotion ? {} : { opacity: 1, x: 0 }}
-                      whileInView={prefersReducedMotion ? {} : { opacity: 1, x: 0 }}
-                      viewport={viewportConfig}
-                      transition={{ delay: 0.3 + index * 0.05, type: 'spring', stiffness: 300, damping: 25 }}
+                      transition={{ type: 'spring', stiffness: 300, damping: 25 }}
                     >
                       <span className="about__coursework-bullet" aria-hidden="true" />
                       <span>{course}</span>
                     </motion.li>
                   ))}
-                </ul>
+                </StaggerContainer>
               </div>
-            </div>
+            </ScrollReveal>
           </motion.aside>
         </div>
       </div>

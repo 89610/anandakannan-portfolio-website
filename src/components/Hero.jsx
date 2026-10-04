@@ -96,6 +96,7 @@ export function Hero() {
           initial={prefersReducedMotion ? {} : { opacity: 0, y: 30 }}
           animate={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
           transition={prefersReducedMotion ? {} : { duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
+          viewport={{ once: false, margin: '0px' }}
         >
           <motion.div
             className="hero__badge"
@@ -213,6 +214,7 @@ export function Hero() {
           initial={prefersReducedMotion ? {} : { opacity: 0, x: 50, scale: 0.9 }}
           animate={prefersReducedMotion ? {} : { opacity: 1, x: 0, scale: 1 }}
           transition={prefersReducedMotion ? {} : { delay: 0.4, duration: 1, type: 'spring', stiffness: 100, damping: 15 }}
+          viewport={{ once: false, margin: '0px' }}
           aria-hidden="true"
         >
           <div className="hero__profile-card">
@@ -235,6 +237,7 @@ export function Hero() {
         initial={prefersReducedMotion ? {} : { opacity: 0 }}
         animate={prefersReducedMotion ? {} : { opacity: 1 }}
         transition={prefersReducedMotion ? {} : { delay: 1.5, duration: 1 }}
+        viewport={{ once: false, margin: '0px' }}
       >
         <motion.div
           className="hero__scroll-mouse"
