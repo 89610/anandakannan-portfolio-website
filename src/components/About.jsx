@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { FiBook, FiTarget, FiCode } from 'react-icons/fi';
-import { ScrollReveal, StaggerContainer } from './ScrollReveal';
+import { getRevealProps, getStaggerProps } from './ScrollReveal';
 import './About.css';
 
 const aboutData = {
@@ -29,7 +29,7 @@ const aboutData = {
 export function About() {
   const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  const viewportConfig = { once: false, margin: '0px' };
+  const viewportConfig = { once: false, amount: 0.1 };
 
   return (
     <section id="about" className="section about" aria-labelledby="about-title">
@@ -37,10 +37,9 @@ export function About() {
         <motion.div
           className="about__header"
           initial={prefersReducedMotion ? {} : { opacity: 0, y: 30 }}
-          animate={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
           whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
           viewport={viewportConfig}
-          transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
+          transition={{ duration: 0.35, ease: 'easeOut' }}
         >
           <span className="about__badge">About Me</span>
           <h2 id="about-title" className="about__title">Get to Know Me</h2>
@@ -50,34 +49,28 @@ export function About() {
           <motion.article
             className="about__content"
             initial={prefersReducedMotion ? {} : { opacity: 0, y: 30 }}
-            animate={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
             whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
             viewport={viewportConfig}
-            transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.1 }}
+            transition={{ duration: 0.35, ease: 'easeOut', delay: 0.1 }}
           >
-            <ScrollReveal
-              as="div"
+            <motion.p
               className="about__text-block"
-              delay={0.2}
-              viewport={viewportConfig}
+              {...getRevealProps({ delay: 0.2, prefersReducedMotion })}
             >
-              <p>{aboutData.summary}</p>
-            </ScrollReveal>
+              {aboutData.summary}
+            </motion.p>
 
-            <StaggerContainer
-              className="about__highlights"
-              delay={0.3}
-              stagger={100}
-              viewport={viewportConfig}
-            >
+            <div className="about__highlights">
               {aboutData.highlights.map((highlight, index) => (
                 <motion.div
                   key={highlight.title}
                   className="about__highlight-card"
-                  initial={prefersReducedMotion ? {} : { opacity: 0, y: 20 }}
-                  animate={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
-                  viewport={undefined}
-                  transition={{ type: 'spring', stiffness: 300, damping: 25 }}
+                  {...getStaggerProps({
+                    delay: 0.3,
+                    stagger: 100,
+                    index,
+                    prefersReducedMotion,
+                  })}
                 >
                   <div className="about__highlight-icon">
                     <highlight.icon size={22} aria-hidden="true" />
@@ -86,22 +79,19 @@ export function About() {
                   <p className="about__highlight-desc">{highlight.desc}</p>
                 </motion.div>
               ))}
-            </StaggerContainer>
+            </div>
           </motion.article>
 
           <motion.aside
             className="about__sidebar"
             initial={prefersReducedMotion ? {} : { opacity: 0, y: 30 }}
-            animate={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
             whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
             viewport={viewportConfig}
-            transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.2 }}
+            transition={{ duration: 0.35, ease: 'easeOut', delay: 0.2 }}
           >
-            <ScrollReveal
-              as="div"
+            <motion.div
               className="about__card about__card--education"
-              delay={0.1}
-              viewport={viewportConfig}
+              {...getRevealProps({ delay: 0.1, prefersReducedMotion })}
             >
               <div className="about__card-header">
                 <div className="about__card-icon">
@@ -121,13 +111,11 @@ export function About() {
                   <span className="about__cgpa-value">{aboutData.education.cgpa}</span>
                 </div>
               </div>
-            </ScrollReveal>
+            </motion.div>
 
-            <ScrollReveal
-              as="div"
+            <motion.div
               className="about__card about__card--coursework"
-              delay={0.2}
-              viewport={viewportConfig}
+              {...getRevealProps({ delay: 0.2, prefersReducedMotion })}
             >
               <div className="about__card-header">
                 <div className="about__card-icon">
@@ -139,28 +127,25 @@ export function About() {
                 </div>
               </div>
               <div className="about__card-body">
-                <StaggerContainer
-                  as="ul"
-                  className="about__coursework-list"
-                  delay={0.1}
-                  stagger={50}
-                  viewport={undefined}
-                >
+                <ul className="about__coursework-list">
                   {aboutData.coursework.map((course, index) => (
                     <motion.li
                       key={course}
                       className="about__coursework-item"
-                      initial={prefersReducedMotion ? {} : { opacity: 0, x: -20 }}
-                      animate={prefersReducedMotion ? {} : { opacity: 1, x: 0 }}
-                      transition={{ type: 'spring', stiffness: 300, damping: 25 }}
+                      {...getStaggerProps({
+                        delay: 0.1,
+                        stagger: 50,
+                        index,
+                        prefersReducedMotion,
+                      })}
                     >
                       <span className="about__coursework-bullet" aria-hidden="true" />
                       <span>{course}</span>
                     </motion.li>
                   ))}
-                </StaggerContainer>
+                </ul>
               </div>
-            </ScrollReveal>
+            </motion.div>
           </motion.aside>
         </div>
       </div>

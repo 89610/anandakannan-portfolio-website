@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { FiGithub, FiExternalLink, FiCode, FiDatabase, FiMic, FiLayout, FiSmartphone, FiGlobe } from 'react-icons/fi';
-import { StaggerContainer } from './ScrollReveal';
+import { getRevealProps, getStaggerProps } from './ScrollReveal';
 import './Projects.css';
 
 const projects = [
@@ -65,7 +65,7 @@ const projects = [
 export function Projects() {
   const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  const viewportConfig = { once: false, margin: '0px' };
+  const viewportConfig = { once: false, amount: 0.1 };
 
   return (
     <section id="projects" className="section projects" aria-labelledby="projects-title">
@@ -73,10 +73,9 @@ export function Projects() {
         <motion.div
           className="projects__header"
           initial={prefersReducedMotion ? {} : { opacity: 0, y: 30 }}
-          animate={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
           whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
           viewport={viewportConfig}
-          transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
+          transition={{ duration: 0.35, ease: 'easeOut' }}
         >
           <span className="projects__badge">Selected Work</span>
           <h2 id="projects-title" className="projects__title">Featured Projects</h2>
@@ -92,10 +91,9 @@ export function Projects() {
               key={project.id}
               className={`projects__card ${project.featured ? 'projects__card--featured' : ''}`}
               initial={prefersReducedMotion ? {} : { opacity: 0, y: 40 }}
-              animate={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
               whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
               viewport={viewportConfig}
-              transition={{ delay: index * 0.15, duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
+              transition={{ delay: index * 0.15, duration: 0.35, ease: 'easeOut' }}
             >
               {project.featured ? (
                 <ProjectFeatured project={project} prefersReducedMotion={prefersReducedMotion} />
@@ -111,7 +109,6 @@ export function Projects() {
 }
 
 function ProjectFeatured({ project, prefersReducedMotion }) {
-  const viewportConfig = { once: false, margin: '0px' };
   return (
     <div className="projects__featured">
       <div className="projects__visual">
@@ -181,20 +178,17 @@ function ProjectFeatured({ project, prefersReducedMotion }) {
 
         <div className="projects__tech">
           <h4 className="projects__tech-title">Technology Stack</h4>
-          <StaggerContainer
-            as="div"
-            className="projects__tech-list"
-            delay={0.3}
-            stagger={50}
-            viewport={undefined}
-          >
+          <div className="projects__tech-list">
             {project.technologies.map((tech, i) => (
               <motion.button
                 key={tech.name}
                 className="projects__tech-tag"
-                initial={prefersReducedMotion ? {} : { opacity: 0, scale: 0.8 }}
-                animate={prefersReducedMotion ? {} : { opacity: 1, scale: 1 }}
-                transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+                {...getStaggerProps({
+                  delay: 0.3,
+                  stagger: 50,
+                  index: i,
+                  prefersReducedMotion,
+                })}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -202,30 +196,27 @@ function ProjectFeatured({ project, prefersReducedMotion }) {
                 <span>{tech.name}</span>
               </motion.button>
             ))}
-          </StaggerContainer>
+          </div>
         </div>
 
         <div className="projects__features">
           <h4 className="projects__tech-title">Key Features</h4>
-          <StaggerContainer
-            as="ul"
-            className="projects__features-list"
-            delay={0.4}
-            stagger={50}
-            viewport={undefined}
-          >
+          <ul className="projects__features-list">
             {project.features.map((feature, i) => (
               <motion.li
                 key={feature}
-                initial={prefersReducedMotion ? {} : { opacity: 0, x: -10 }}
-                animate={prefersReducedMotion ? {} : { opacity: 1, x: 0 }}
-                transition={{ type: 'spring', stiffness: 300, damping: 25 }}
+                {...getStaggerProps({
+                  delay: 0.4,
+                  stagger: 50,
+                  index: i,
+                  prefersReducedMotion,
+                })}
               >
                 <span className="projects__feature-bullet" aria-hidden="true" />
                 <span>{feature}</span>
               </motion.li>
             ))}
-          </StaggerContainer>
+          </ul>
         </div>
 
         <div className="projects__actions">
@@ -267,7 +258,6 @@ function ProjectFeatured({ project, prefersReducedMotion }) {
 }
 
 function ProjectCompact({ project, prefersReducedMotion }) {
-  const viewportConfig = { once: false, margin: '0px' };
   return (
     <div className="projects__compact">
       <div className="projects__visual projects__visual--compact">
@@ -330,20 +320,17 @@ function ProjectCompact({ project, prefersReducedMotion }) {
 
         <div className="projects__tech">
           <h4 className="projects__tech-title">Technology Stack</h4>
-          <StaggerContainer
-            as="div"
-            className="projects__tech-list"
-            delay={0.3}
-            stagger={50}
-            viewport={undefined}
-          >
+          <div className="projects__tech-list">
             {project.technologies.map((tech, i) => (
               <motion.button
                 key={tech.name}
                 className="projects__tech-tag"
-                initial={prefersReducedMotion ? {} : { opacity: 0, scale: 0.8 }}
-                animate={prefersReducedMotion ? {} : { opacity: 1, scale: 1 }}
-                transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+                {...getStaggerProps({
+                  delay: 0.3,
+                  stagger: 50,
+                  index: i,
+                  prefersReducedMotion,
+                })}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -351,30 +338,27 @@ function ProjectCompact({ project, prefersReducedMotion }) {
                 <span>{tech.name}</span>
               </motion.button>
             ))}
-          </StaggerContainer>
+          </div>
         </div>
 
         <div className="projects__features">
           <h4 className="projects__tech-title">Key Highlights</h4>
-          <StaggerContainer
-            as="ul"
-            className="projects__features-list"
-            delay={0.4}
-            stagger={50}
-            viewport={undefined}
-          >
+          <ul className="projects__features-list">
             {project.features.map((feature, i) => (
               <motion.li
                 key={feature}
-                initial={prefersReducedMotion ? {} : { opacity: 0, x: -10 }}
-                animate={prefersReducedMotion ? {} : { opacity: 1, x: 0 }}
-                transition={{ type: 'spring', stiffness: 300, damping: 25 }}
+                {...getStaggerProps({
+                  delay: 0.4,
+                  stagger: 50,
+                  index: i,
+                  prefersReducedMotion,
+                })}
               >
                 <span className="projects__feature-bullet" aria-hidden="true" />
                 <span>{feature}</span>
               </motion.li>
             ))}
-          </StaggerContainer>
+          </ul>
         </div>
 
         <div className="projects__actions">

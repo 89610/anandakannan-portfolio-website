@@ -24,7 +24,7 @@ export function Footer() {
   const [showBackToTop, setShowBackToTop] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
-  const viewportConfig = { once: false, margin: '0px' };
+  const viewportConfig = { once: false, amount: 0.1 };
 
   useEffect(() => {
     const handleScroll = () => {

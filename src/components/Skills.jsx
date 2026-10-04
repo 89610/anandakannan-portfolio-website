@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { FiCode, FiTerminal, FiLayout, FiTool, FiDatabase, FiGlobe } from 'react-icons/fi';
-import { StaggerContainer } from './ScrollReveal';
+import { getRevealProps, getStaggerProps } from './ScrollReveal';
 import './Skills.css';
 
 const skillsData = {
@@ -81,7 +81,7 @@ const skillsData = {
 export function Skills() {
   const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  const viewportConfig = { once: false, margin: '0px' };
+  const viewportConfig = { once: false, amount: 0.1 };
 
   return (
     <section id="skills" className="section skills" aria-labelledby="skills-title">
@@ -89,10 +89,9 @@ export function Skills() {
         <motion.div
           className="skills__header"
           initial={prefersReducedMotion ? {} : { opacity: 0, y: 30 }}
-          animate={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
           whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
           viewport={viewportConfig}
-          transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
+          transition={{ duration: 0.35, ease: 'easeOut' }}
         >
           <span className="skills__badge">Technical Skills</span>
           <h2 id="skills-title" className="skills__title">Technologies & Tools</h2>
@@ -105,10 +104,9 @@ export function Skills() {
         <motion.div
           className="skills__grid"
           initial={prefersReducedMotion ? {} : { opacity: 0 }}
-          animate={prefersReducedMotion ? {} : { opacity: 1 }}
           whileInView={prefersReducedMotion ? {} : { opacity: 1 }}
           viewport={viewportConfig}
-          transition={{ delay: 0.1 }}
+          transition={{ duration: 0.35, ease: 'easeOut', delay: 0.1 }}
         >
           {skillsData.categories.map((category, catIndex) => (
             <motion.article
@@ -120,10 +118,9 @@ export function Skills() {
                 '--category-border': category.borderColor,
               }}
               initial={prefersReducedMotion ? {} : { opacity: 0, y: 30 }}
-              animate={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
               whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
               viewport={viewportConfig}
-              transition={{ delay: 0.15 + catIndex * 0.08, type: 'spring', stiffness: 300, damping: 25 }}
+              transition={{ delay: 0.15 + catIndex * 0.08, duration: 0.35, ease: 'easeOut' }}
             >
               <header className="skills__category-header">
                 <div className="skills__category-icon">
@@ -135,21 +132,17 @@ export function Skills() {
                 </div>
               </header>
 
-              <StaggerContainer
-                as="ul"
-                className="skills__list"
-                role="list"
-                delay={0.1}
-                stagger={30}
-                viewport={undefined}
-              >
+              <ul className="skills__list" role="list">
                 {category.skills.map((skill, skillIndex) => (
                   <motion.li
                     key={skill}
                     className="skills__item"
-                    initial={prefersReducedMotion ? {} : { opacity: 0, x: -20 }}
-                    animate={prefersReducedMotion ? {} : { opacity: 1, x: 0 }}
-                    transition={{ type: 'spring', stiffness: 300, damping: 25 }}
+                    {...getStaggerProps({
+                      delay: 0.1,
+                      stagger: 30,
+                      index: skillIndex,
+                      prefersReducedMotion,
+                    })}
                     whileHover={{ x: 8 }}
                   >
                     <span className="skills__item-name">{skill}</span>
@@ -158,7 +151,7 @@ export function Skills() {
                     </span>
                   </motion.li>
                 ))}
-              </StaggerContainer>
+              </ul>
             </motion.article>
           ))}
         </motion.div>

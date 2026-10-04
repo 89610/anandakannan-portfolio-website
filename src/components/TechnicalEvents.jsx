@@ -38,7 +38,7 @@ const events = [
 export function TechnicalEvents() {
   const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  const viewportConfig = { once: false, margin: '0px' };
+  const viewportConfig = { once: false, amount: 0.1 };
 
   return (
     <section id="technical-events" className="section technical-events" aria-labelledby="technical-events-title">

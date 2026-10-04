@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { FiAward, FiBook, FiCalendar } from 'react-icons/fi';
-import { StaggerContainer } from './ScrollReveal';
+import { getRevealProps, getStaggerProps } from './ScrollReveal';
 import './Education.css';
 
 const educationData = {
@@ -21,7 +21,7 @@ const educationData = {
 export function Education() {
   const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  const viewportConfig = { once: false, margin: '0px' };
+  const viewportConfig = { once: false, amount: 0.1 };
 
   return (
     <section id="education" className="section education" aria-labelledby="education-title">
@@ -29,10 +29,9 @@ export function Education() {
         <motion.div
           className="education__header"
           initial={prefersReducedMotion ? {} : { opacity: 0, y: 30 }}
-          animate={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
           whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
           viewport={viewportConfig}
-          transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
+          transition={{ duration: 0.35, ease: 'easeOut' }}
         >
           <span className="education__badge">Education</span>
           <h2 id="education-title" className="education__title">Academic Background</h2>
@@ -44,27 +43,28 @@ export function Education() {
         <motion.div
           className="education__timeline"
           initial={prefersReducedMotion ? {} : { opacity: 0 }}
-          animate={prefersReducedMotion ? {} : { opacity: 1 }}
           whileInView={prefersReducedMotion ? {} : { opacity: 1 }}
           viewport={viewportConfig}
-          transition={{ delay: 0.1 }}
+          transition={{ duration: 0.35, ease: 'easeOut', delay: 0.1 }}
         >
           <div className="education__timeline-line" aria-hidden="true" />
 
           <motion.article
             className="education__entry"
             initial={prefersReducedMotion ? {} : { opacity: 0, x: -30 }}
-            animate={prefersReducedMotion ? {} : { opacity: 1, x: 0 }}
             whileInView={prefersReducedMotion ? {} : { opacity: 1, x: 0 }}
             viewport={viewportConfig}
-            transition={{ delay: 0.15, type: 'spring', stiffness: 300, damping: 25 }}
+            transition={{ delay: 0.15, duration: 0.35, ease: 'easeOut' }}
           >
             <div className="education__marker">
               <div className="education__marker-dot" aria-hidden="true" />
               <div className="education__marker-ring" aria-hidden="true" />
             </div>
 
-            <div className="education__card">
+            <motion.div
+              className="education__card"
+              {...getRevealProps({ delay: 0.1, prefersReducedMotion })}
+            >
               <div className="education__card-header">
                 <div className="education__icon-wrapper">
                   <FiAward size={24} aria-hidden="true" />
@@ -94,30 +94,26 @@ export function Education() {
 
                 <div className="education__coursework">
                   <h4 className="education__coursework-title">Relevant Coursework</h4>
-                  <StaggerContainer
-                    as="ul"
-                    className="education__coursework-list"
-                    role="list"
-                    delay={0.2}
-                    stagger={50}
-                    viewport={undefined}
-                  >
+                  <ul className="education__coursework-list" role="list">
                     {educationData.coursework.map((course, index) => (
                       <motion.li
                         key={course}
                         className="education__coursework-item"
-                        initial={prefersReducedMotion ? {} : { opacity: 0, x: -10 }}
-                        animate={prefersReducedMotion ? {} : { opacity: 1, x: 0 }}
-                        transition={{ type: 'spring', stiffness: 300, damping: 25 }}
+                        {...getStaggerProps({
+                          delay: 0.2,
+                          stagger: 50,
+                          index,
+                          prefersReducedMotion,
+                        })}
                       >
                         <span className="education__coursework-bullet" aria-hidden="true" />
                         <span>{course}</span>
                       </motion.li>
                     ))}
-                  </StaggerContainer>
+                  </ul>
                 </div>
               </div>
-            </div>
+            </motion.div>
           </motion.article>
         </motion.div>
       </div>

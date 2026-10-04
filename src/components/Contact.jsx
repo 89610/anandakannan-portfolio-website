@@ -24,7 +24,7 @@ export function Contact() {
   const [errors, setErrors] = useState({});
   const [submitStatus, setSubmitStatus] = useState('idle'); // idle, submitting, success, error
 
-  const viewportConfig = { once: false, margin: '0px' };
+  const viewportConfig = { once: false, amount: 0.1 };
 
   const validateForm = () => {
     const newErrors = {};

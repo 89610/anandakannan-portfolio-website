@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { FiTerminal, FiBookOpen, FiCheckCircle, FiTarget } from 'react-icons/fi';
-import { StaggerContainer } from './ScrollReveal';
+import { getRevealProps, getStaggerProps } from './ScrollReveal';
 import './TechnicalActivities.css';
 
 const activities = [
@@ -36,7 +36,7 @@ const activities = [
 export function TechnicalActivities() {
   const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  const viewportConfig = { once: false, margin: '0px' };
+  const viewportConfig = { once: false, amount: 0.1 };
 
   return (
     <section id="technical-activities" className="section technical-activities" aria-labelledby="technical-activities-title">
@@ -44,10 +44,9 @@ export function TechnicalActivities() {
         <motion.div
           className="technical-activities__header"
           initial={prefersReducedMotion ? {} : { opacity: 0, y: 30 }}
-          animate={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
           whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
           viewport={viewportConfig}
-          transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
+          transition={{ duration: 0.35, ease: 'easeOut' }}
         >
           <span className="technical-activities__badge">Technical Activities</span>
           <h2 id="technical-activities-title" className="technical-activities__title">Ongoing Learning</h2>
@@ -59,10 +58,9 @@ export function TechnicalActivities() {
         <motion.div
           className="technical-activities__grid"
           initial={prefersReducedMotion ? {} : { opacity: 0 }}
-          animate={prefersReducedMotion ? {} : { opacity: 1 }}
           whileInView={prefersReducedMotion ? {} : { opacity: 1 }}
           viewport={viewportConfig}
-          transition={{ delay: 0.1 }}
+          transition={{ duration: 0.35, ease: 'easeOut', delay: 0.1 }}
         >
           {activities.map((activity, index) => (
             <motion.article
@@ -74,10 +72,9 @@ export function TechnicalActivities() {
                 '--activity-border': activity.borderColor,
               }}
               initial={prefersReducedMotion ? {} : { opacity: 0, y: 30 }}
-              animate={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
               whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
               viewport={viewportConfig}
-              transition={{ delay: 0.15 + index * 0.1, type: 'spring', stiffness: 300, damping: 25 }}
+              transition={{ delay: 0.15 + index * 0.1, duration: 0.35, ease: 'easeOut' }}
             >
               <div className="technical-activities__card-header">
                 <div className="technical-activities__icon-wrapper">
@@ -88,31 +85,32 @@ export function TechnicalActivities() {
                 </div>
               </div>
 
-              <p className="technical-activities__description">{activity.description}</p>
+              <motion.p
+                className="technical-activities__description"
+                {...getRevealProps({ delay: 0.1, prefersReducedMotion })}
+              >
+                {activity.description}
+              </motion.p>
 
               <div className="technical-activities__highlights">
                 <h4 className="technical-activities__highlights-title">Focus Areas</h4>
-                <StaggerContainer
-                  as="ul"
-                  className="technical-activities__highlights-list"
-                  role="list"
-                  delay={0.25}
-                  stagger={40}
-                  viewport={undefined}
-                >
+                <ul className="technical-activities__highlights-list" role="list">
                   {activity.highlights.map((highlight, hIndex) => (
                     <motion.li
                       key={highlight}
                       className="technical-activities__highlight-item"
-                      initial={prefersReducedMotion ? {} : { opacity: 0, x: -10 }}
-                      animate={prefersReducedMotion ? {} : { opacity: 1, x: 0 }}
-                      transition={{ type: 'spring', stiffness: 300, damping: 25 }}
+                      {...getStaggerProps({
+                        delay: 0.25,
+                        stagger: 40,
+                        index: hIndex,
+                        prefersReducedMotion,
+                      })}
                     >
                       <FiCheckCircle size={14} className="technical-activities__check" aria-hidden="true" />
                       <span>{highlight}</span>
                     </motion.li>
                   ))}
-                </StaggerContainer>
+                </ul>
               </div>
             </motion.article>
           ))}
